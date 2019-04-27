@@ -1,32 +1,22 @@
-SUBMAKES_REQUIRED=logo/mu theme/mu
-SUBMAKES_EXTRA=guide/mu example/mu
-SUBMAKES_TEST=test/mu
+SUBMAKES_REQUIRED=logo/ist theme/ist
+SUBMAKES_EXTRA=example/ist
+SUBMAKES_TEST=
 SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_EXTRA) $(SUBMAKES_TEST)
 .PHONY: all base complete docs clean dist dist-implode implode \
 	install install-base install-docs uninstall tests $(SUBMAKES)
 
 BASETHEMEFILE=beamerthemefibeamer.sty
-OTHERTHEMEFILES=theme/mu/*.sty
+OTHERTHEMEFILES=theme/ist/*.sty
 THEMEFILES=$(BASETHEMEFILE) $(OTHERTHEMEFILES)
 LOGOSOURCES=logo/*/*.pdf
 LOGOS=logo/*/*.eps
-DTXFILES=*.dtx theme/mu/*.dtx
-INSFILES=*.ins theme/mu/*.ins
-TESTS=test/mu/*.pdf
-MAKES=guide/mu/Makefile theme/mu/Makefile logo/mu/Makefile Makefile \
-	test/mu/Makefile
-USEREXAMPLE_SOURCES=example/mu/Makefile example/mu/example.dtx \
-	example/mu/*.ins
-USEREXAMPLES=example/mu/econ-lualatex.pdf \
-	example/mu/econ-pdflatex.pdf example/mu/fi-lualatex.pdf \
-	example/mu/fi-pdflatex.pdf example/mu/fsps-lualatex.pdf \
-	example/mu/fsps-pdflatex.pdf example/mu/fss-lualatex.pdf \
-	example/mu/fss-pdflatex.pdf example/mu/law-lualatex.pdf \
-	example/mu/law-pdflatex.pdf example/mu/med-lualatex.pdf \
-	example/mu/med-pdflatex.pdf example/mu/ped-lualatex.pdf \
-	example/mu/ped-pdflatex.pdf example/mu/phil-lualatex.pdf \
-	example/mu/phil-pdflatex.pdf example/mu/sci-lualatex.pdf \
-	example/mu/sci-pdflatex.pdf
+DTXFILES=*.dtx theme/ist/*.dtx
+INSFILES=*.ins theme/ist/*.ins
+TESTS=
+MAKES=Makefile guide/ist/Makefile theme/ist/Makefile logo/ist/Makefile
+USEREXAMPLE_SOURCES=example/ist/Makefile example/ist/example.dtx \
+	example/ist/*.ins
+USEREXAMPLES=example/ist/dei-lualatex.pdf example/ist/dei-pdflatex.pdf
 DEVEXAMPLES=logo/DESCRIPTION logo/EXAMPLE/DESCRIPTION \
 	logo/mu/DESCRIPTION theme/EXAMPLE/DESCRIPTION \
 	theme/mu/DESCRIPTION theme/DESCRIPTION example/DESCRIPTION \
@@ -36,12 +26,12 @@ DEVEXAMPLES=logo/DESCRIPTION logo/EXAMPLE/DESCRIPTION \
 	guide/mu/resources/DESCRIPTION test/DESCRIPTION \
 	test/EXAMPLE/DESCRIPTION test/mu/DESCRIPTION
 EXAMPLES=$(USEREXAMPLES) $(DEVEXAMPLES)
-MISCELLANEOUS=guide/mu/guide.bib \
-	guide/mu/guide.dtx guide/mu/*.ins guide/mu/resources/cog.pdf \
-  guide/mu/resources/vader.pdf guide/mu/resources/yoda.pdf \
+MISCELLANEOUS=guide/ist/guide.bib \
+	guide/ist/guide.dtx guide/ist/*.ins guide/ist/resources/cog.pdf \
+    guide/ist/resources/vader.pdf guide/ist/resources/yoda.pdf \
 	$(USEREXAMPLES:.pdf=.tex) \
-	example/mu/resources/jabberwocky-dark.pdf \
-	example/mu/resources/jabberwocky-light.pdf README.md
+	example/ist/resources/jabberwocky-dark.pdf \
+	example/ist/resources/jabberwocky-light.pdf README.md
 RESOURCES=$(THEMEFILES) $(LOGOS) $(LOGOSOURCES)
 SOURCES=$(DTXFILES) $(INSFILES) LICENSE.tex
 AUXFILES=fibeamer.aux fibeamer.log fibeamer.toc fibeamer.ind \
@@ -49,11 +39,8 @@ AUXFILES=fibeamer.aux fibeamer.log fibeamer.toc fibeamer.ind \
 	fibeamer.glo fibeamer.hd
 MANUAL=fibeamer.pdf
 PDFSOURCES=fibeamer.dtx
-GUIDES=guide/mu/econ.pdf guide/mu/fi.pdf guide/mu/fsps.pdf \
-	guide/mu/fss.pdf guide/mu/law.pdf guide/mu/med.pdf \
-	guide/mu/ped.pdf guide/mu/phil.pdf guide/mu/sci.pdf
-PDFS=$(MANUAL) $(GUIDES) $(USEREXAMPLES)
-DOCS=$(MANUAL) $(GUIDES)
+PDFS=$(MANUAL) $(USEREXAMPLES)
+DOCS=$(MANUAL)
 VERSION=VERSION.tex
 TDSARCHIVE=fibeamer.tds.zip
 CTANARCHIVE=fibeamer.ctan.zip
