@@ -1,9 +1,7 @@
 # About #
 
-`Fibeamer` is a beamer theme for the typesetting of thesis defense
-presentations at the Masaryk University (Brno, Czech Republic). The
-theme has been designed for easy extensibility by style and locale
-files of other academic institutions.
+`Fibeamerb` is a fork of `Fibeamer` for the typesetting of
+presentations at Instituto Superior Técnico.
 
 # Requirements #
 
