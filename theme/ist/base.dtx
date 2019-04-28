@@ -5,9 +5,9 @@
 % Masaryk University in Brno.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fibeamer/theme/ist/%
-  beamercolorthemefibeamer-ist}[2016/05/06]
+\ProvidesPackage{fibeamer/theme/ist/beamercolorthemefibeamer-ist}[2016/05/06]
 %    \end{macrocode}
+%
 % \begin{macro}{\darkframes}
 % The |darkframes| environment switches the color definitions to
 % render the enclosed frames in dark colors. This is a dummy
@@ -17,6 +17,7 @@
 \newenvironment{darkframes}{}{}
 %    \end{macrocode}
 % \end{macro}
+%
 % The rest of the theme will be ignored outside the presentation
 % mode.
 %    \begin{macrocode}
@@ -62,23 +63,34 @@
 %    \begin{macrocode}
   \defbeamertemplate*{background canvas}{fibeamer}{%
     \ifthenelse{%
-      \boolean{fibeamer@dark} \OR \c@framenumber=0
-    }{%
+      \c@framenumber=0
+    }{% then
       \begin{tikzpicture}
-        \clip (0,\fibeamer@lengths@clipbottom) rectangle
-          (\paperwidth,\fibeamer@lengths@cliptop);
-        \path [inner color = fibeamer@dark@backgroundInner,
+        \clip (0,0) rectangle (\paperwidth,\paperheight);
+        \fill [inner color = fibeamer@dark@backgroundInner,
                outer color = fibeamer@dark@backgroundOuter]
-          (0,0) rectangle (\paperwidth,\paperwidth);
+          (.35\paperwidth,.65\paperheight) circle (.85\paperwidth);
       \end{tikzpicture}
-    }{%
-      \begin{tikzpicture}
-        \clip (0,\fibeamer@lengths@clipbottom) rectangle
-          (\paperwidth,\fibeamer@lengths@cliptop);
-        \path [inner color = fibeamer@light@backgroundInner,
-               outer color = fibeamer@light@backgroundOuter]
-          (0,0) rectangle (\paperwidth,\paperwidth);
-      \end{tikzpicture}
+    }{% else
+      \ifthenelse{%
+        \boolean{fibeamer@dark}
+      }{% then
+        \begin{tikzpicture}
+          \clip (0,\fibeamer@lengths@clipbottom) rectangle
+            (\paperwidth,\fibeamer@lengths@cliptop);
+          \path [inner color = fibeamer@dark@backgroundInner,
+                 outer color = fibeamer@dark@backgroundOuter]
+            (0,0) rectangle (\paperwidth,\paperwidth);
+        \end{tikzpicture}
+      }{% else
+        \begin{tikzpicture}
+          \clip (0,\fibeamer@lengths@clipbottom) rectangle
+            (\paperwidth,\fibeamer@lengths@cliptop);
+          \path [inner color = fibeamer@light@backgroundInner,
+                 outer color = fibeamer@light@backgroundOuter]
+            (0,0) rectangle (\paperwidth,\paperwidth);
+        \end{tikzpicture}
+      }
     }}
 %    \end{macrocode}
 % The |\qed| symbol inserted at the end of proofs will have the
@@ -108,12 +120,11 @@
 % presentation mode.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fibeamer/theme/ist/%
-  beamerfontthemefibeamer-ist}[2016/01/12]
+\ProvidesPackage{fibeamer/theme/ist/beamerfontthemefibeamer-ist}[2016/01/12]
 \mode<presentation>
   \setbeamerfont{normal text}{size=\normalsize}
   \setbeamerfont{title}{size=\LARGE, series=\bfseries}
-  \setbeamerfont{subtitle}{parent=normal text, size=\Large}
+  \setbeamerfont{subtitle}{parent=normal text, size=\large}
   \setbeamerfont{frametitle}{size=\Large}
   \setbeamerfont{framesubtitle}{size=\large, shape=\itshape}
   \setbeamerfont{description item}{series=\bfseries}
@@ -130,8 +141,7 @@
 % presentation mode.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fibeamer/theme/ist/%
-  beamerinnerthemefibeamer-ist}[2016/01/14]
+\ProvidesPackage{fibeamer/theme/ist/beamerinnerthemefibeamer-ist}[2016/01/14]
 \mode<presentation>
 %    \end{macrocode}
 % This part of the inner theme defines the design of lists.
@@ -191,8 +201,7 @@
 % presentation mode.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fibeamer/theme/ist/%
-  beamerouterthemefibeamer-ist}[2016/01/12]
+\ProvidesPackage{fibeamer/theme/ist/beamerouterthemefibeamer-ist}[2016/01/12]
 \mode<presentation>
 %    \end{macrocode}
 % The theme uses the following packages:
@@ -230,11 +239,11 @@
 %   corner. [VN]}
 %    \begin{macrocode}
   \newlength\fibeamer@lengths@baseunit
-  \fibeamer@lengths@baseunit=3.75mm
+  \fibeamer@lengths@baseunit=3.5mm
   % The footer padding
   \newlength\fibeamer@lengths@footerpad
   \setlength\fibeamer@lengths@footerpad{%
-    \fibeamer@lengths@baseunit}
+    0.75\fibeamer@lengths@baseunit}
   % The side margins
   \newlength\fibeamer@lengths@margin
   \setlength\fibeamer@lengths@margin{%
@@ -323,13 +332,10 @@
     \setcounter{framenumber}{0}
 
     % Input the university logo
-    \begin{tikzpicture}[
-      remember picture,
-      overlay,
-      xshift=0.5\fibeamer@lengths@logowidth,
-      yshift=0.5\fibeamer@lengths@logoheight
-    ]
-      \node at (0,0) {
+    \begin{tikzpicture}[remember picture, overlay]
+      \node[xshift=.715\fibeamer@lengths@logowidth,
+            yshift=-.95\fibeamer@lengths@logoheight]
+            at (current page.north west) {
         \fibeamer@includeLogo[
           width=\fibeamer@lengths@logowidth,
           height=\fibeamer@lengths@logoheight
@@ -342,20 +348,20 @@
     \begin{minipage}[b][2\baselineskip][b]{\textwidth}%
       \raggedright\inserttitle
     \end{minipage}
-    \vskip-.5\baselineskip
+    \vskip-.7\baselineskip
 
     % Input the dashed line
     \begin{pgfpicture}
-      \pgfsetlinewidth{2pt}
+      \pgfsetlinewidth{1.5pt}
       \pgfsetroundcap
-      \pgfsetdash{{0pt}{4pt}}{0cm}
+      \pgfsetdash{{0pt}{3pt}}{0cm}
 
       \pgfpathmoveto{\pgfpoint{0mm}{0mm}}
       \pgfpathlineto{\pgfpoint{\textwidth}{0mm}}
 
       \pgfusepath{stroke}
     \end{pgfpicture}
-    \vfill
+
 %    \end{macrocode}
 % \changes{v1.1.4:4}{2016/05/06}{Added support for subtitle and
 %   author name coloring within the color themes of the Masaryk
@@ -367,7 +373,7 @@
     \begin{minipage}{\textwidth}
       \raggedright%
       \insertsubtitle%
-    \end{minipage}\vskip.25\baselineskip
+    \end{minipage}\vfill
 
     % Input the author's name
     \usebeamerfont{author}%
@@ -376,6 +382,7 @@
       \raggedright%
       \insertauthor%
     \end{minipage}
+    \vskip-1\baselineskip
     \end{darkframes}}
 
 \mode
