@@ -1,3 +1,5 @@
 .idea
+*.sty
+*.log
 *.swp
 *.vim
